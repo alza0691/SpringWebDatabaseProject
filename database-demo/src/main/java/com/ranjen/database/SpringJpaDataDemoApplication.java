@@ -1,18 +1,15 @@
 package com.ranjen.database;
-
 import java.util.Date;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.context.annotation.ComponentScan;
 
-import com.ranjen.database.jpa.entity.Person;
-import com.ranjen.database.jpa.repository.PersonJpaRepository;
-
-
+import com.ranjen.database.springdatajpa.entity.Person;
+import com.ranjen.database.springdatajpa.repository.PersonSpringJpaDataRepository;
 
 /*
 IMPORTANT : 
@@ -23,16 +20,17 @@ or SpringJdbcDemoApplication.java for JDBC
 create it for jdbc. For JPA , if it use memory database the schema will automatically 
 created by JPA and not needed.
 */
-//@SpringBootApplication
-public class JpaDemoApplication implements CommandLineRunner {
+
+@SpringBootApplication
+public class SpringJpaDataDemoApplication implements CommandLineRunner {
 
 	private Logger logger = LoggerFactory.getLogger(this.getClass());
 
 	@Autowired
-	PersonJpaRepository repository;
+	PersonSpringJpaDataRepository repository;
 
 	public static void main(String[] args) {
-		SpringApplication.run(JpaDemoApplication.class, args);
+		SpringApplication.run(SpringJpaDataDemoApplication.class, args);
 	}
 
 	@Override
@@ -40,16 +38,16 @@ public class JpaDemoApplication implements CommandLineRunner {
 		
 		logger.info("User id 10001 -> {}", repository.findById(10001));
 		
-		//not assign id as hibernate will ignore the id.
+		//In springdata there is not merge method as in the normal jpa, 
+		//so for insert and update we use save method, rest all same
 		logger.info("Inserting -> {}", 
-				repository.insert(new Person("Tara", "Berlin", new Date())));
+				repository.save(new Person("Tara", "Berlin", new Date())));
 		
 		logger.info("Update 10003 -> {}", 
-				repository.update(new Person(10003, "Babu", "Malaysia", new Date())));
-		//as it is void method , wil not return anything
-		repository.deleteById(10002);
+				repository.save(new Person(10003, "Pieter", "Utrecht", new Date())));
 		
+		repository.deleteById(10002);
+
 		logger.info("All users -> {}", repository.findAll());
-	
 	}
 }

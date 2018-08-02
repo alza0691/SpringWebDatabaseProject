@@ -16,12 +16,12 @@ import com.ranjen.database.springjdbc.jdbc.PersonJbdcDao;
 /*
 IMPORTANT : 
 * Make sure @SpringBootApplication is commented in either 
-JpaDemoApplication.java for JPA or SpringJdbcDemoApplication.java for JDBC
+JpaDemoApplication.java for JPA or SpringJpaDataDemoApplication for JPA 
+or SpringJdbcDemoApplication.java for JDBC
 * Make sure the create table statement is not commented , as we need to manually
 create it for jdbc. For JPA , if it use memory database the schema will automatically 
 created by JPA and not needed.
 */
-
 
 //using run methd from CommandLineRunner interface to execute the query when first time
 //the application load.
