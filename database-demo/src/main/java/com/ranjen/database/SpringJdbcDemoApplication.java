@@ -1,4 +1,4 @@
-package com.ranjen.database.springjdbc;
+package com.ranjen.database;
 
 import java.util.Date;
 
@@ -8,15 +8,25 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.annotation.ComponentScan;
 
 import com.ranjen.database.springjdbc.entity.Person;
 import com.ranjen.database.springjdbc.jdbc.PersonJbdcDao;
 
+/*
+IMPORTANT : 
+* Make sure @SpringBootApplication is commented in either 
+JpaDemoApplication.java for JPA or SpringJdbcDemoApplication.java for JDBC
+* Make sure the create table statement is not commented , as we need to manually
+create it for jdbc. For JPA , if it use memory database the schema will automatically 
+created by JPA and not needed.
+*/
 
-@SpringBootApplication
+
 //using run methd from CommandLineRunner interface to execute the query when first time
 //the application load.
-public class DatabaseDemoApplication implements CommandLineRunner {
+//@SpringBootApplication
+public class SpringJdbcDemoApplication implements CommandLineRunner {
 
 	private Logger logger = LoggerFactory.getLogger(this.getClass());
 
@@ -24,7 +34,7 @@ public class DatabaseDemoApplication implements CommandLineRunner {
 	PersonJbdcDao dao;
 
 	public static void main(String[] args) {
-		SpringApplication.run(DatabaseDemoApplication.class, args);
+		SpringApplication.run(SpringJdbcDemoApplication.class, args);
 	}
 
 	@Override
