@@ -7,6 +7,7 @@ import java.util.Date;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
@@ -18,13 +19,13 @@ import javax.persistence.Table;
 //@Table(name="person")
 
 @Entity
-@NamedQuery(name="find_all_persons_2", query="select p from Person p") 
 //NamedQuery is for JPQL used in findAll method. Take note the Person in the query is
 //referring to the entity Class name not Table name from database.
 public class Person {
 	
 	@Id //indicate that this is primary key
-	@GeneratedValue //let hibernate take control of generate id automatically 
+	//@GeneratedValue //let hibernate take control of generate id automatically 
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 	
 	//same the column , since it match don't have to mentioned as below.
@@ -37,14 +38,15 @@ public class Person {
 	public Person() {
 	}
 
-	public Person(int id, String name, String location, Date birthDate) {
+	//not needed as id is autoincrement in the mysql
+/*	public Person(int id, String name, String location, Date birthDate) {
 		super();
 		this.id = id;
 		this.name = name;
 		this.location = location;
 		this.birthDate = birthDate;
 	}
-
+*/
 	public Person(String name, String location, Date birthDate) {
 		super();
 		this.name = name;

@@ -9,7 +9,8 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.ComponentScan;
 
-import com.ranjen.database.jpa.entity.Person;
+
+import com.ranjen.database.jpa.entity.Person2;
 import com.ranjen.database.jpa.repository.PersonJpaRepository;
 
 
@@ -22,6 +23,10 @@ or SpringJdbcDemoApplication.java for JDBC
 * Make sure the create table statement is not commented , as we need to manually
 create it for jdbc. For JPA , if it use memory database the schema will automatically 
 created by JPA and not needed.
+
+Please ensure maven project update, refresh and build again for each time you changes between
+them.
+
 */
 //@SpringBootApplication
 public class JpaDemoApplication implements CommandLineRunner {
@@ -38,16 +43,18 @@ public class JpaDemoApplication implements CommandLineRunner {
 	@Override
 	public void run(String... args) throws Exception {
 		
-		logger.info("User id 10001 -> {}", repository.findById(10001));
+		logger.info("User id 1 -> {}", repository.findById(1));
 		
 		//not assign id as hibernate will ignore the id.
 		logger.info("Inserting -> {}", 
-				repository.insert(new Person("Tara", "Berlin", new Date())));
+				repository.insert(new Person2("Mama", "Berlin", new Date())));
 		
-		logger.info("Update 10003 -> {}", 
-				repository.update(new Person(10003, "Babu", "Malaysia", new Date())));
+		//updating to do
+		logger.info("Updating for id 1-> {}", 
+				repository.updateLocation(1,"Mama","Tanjong Tokong"));
+		
 		//as it is void method , wil not return anything
-		repository.deleteById(10002);
+		repository.deleteById(6);
 		
 		logger.info("All users -> {}", repository.findAll());
 	

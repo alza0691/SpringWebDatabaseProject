@@ -9,7 +9,7 @@ import javax.transaction.Transactional;
 
 import org.springframework.stereotype.Repository;
 
-import com.ranjen.database.jpa.entity.Person;
+import com.ranjen.database.jpa.entity.Person2;
 
 
 //@Repository to manage the entity
@@ -28,27 +28,30 @@ public class PersonJpaRepository {
 	//In JPA we use Java Persistence Query Language ( JPQL) instead of sql for query
 	//give the query a name like find_all_persons as below
 	//JPQL does not use table from database , it use entities.
-	public List<Person> findAll() {
-		TypedQuery<Person> namedQuery = entityManager.createNamedQuery("find_all_persons", Person.class);
+	public List<Person2> findAll() {
+		TypedQuery<Person2> namedQuery = entityManager.createNamedQuery("find_all_persons", Person2.class);
 		return namedQuery.getResultList();
 	}
 	
-	public Person findById(int id) {
-		return entityManager.find(Person.class, id);//JPA
+	public Person2 findById(int id) {
+		return entityManager.find(Person2.class, id);//JPA
 	}
 	
 	//to insert or update , we need to use merge method of the EntityManager
-	public Person update(Person person) {
+	public Person2 insert(Person2 person) {
 		return entityManager.merge(person);
 	}
-
-	public Person insert(Person person) {
-		return entityManager.merge(person);
+	
+	public Person2 updateLocation(int id,String name,String location) {
+		Person2 foundPersonByName = findById(id);
+		foundPersonByName.setName(name);
+		foundPersonByName.setLocation(location);
+		return entityManager.merge(foundPersonByName);
 	}
 	
 	//to remove the record by ID.
 	public void deleteById(int id) {
-		Person person = findById(id);
+		Person2 person = findById(id);
 		entityManager.remove(person);
 	}
 }
