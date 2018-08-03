@@ -11,6 +11,8 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import com.ranjen.database.springdatajpa.entity.Person;
 import com.ranjen.database.springdatajpa.repository.PersonSpringJpaDataRepository;
 
+//test comment
+
 /*
 IMPORTANT : 
 * Make sure @SpringBootApplication is commented in either 
